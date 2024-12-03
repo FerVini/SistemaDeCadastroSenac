@@ -1,6 +1,7 @@
 package controller;
 import view.*;
 import model.*;
+
 import static java.nio.file.StandardCopyOption.*;
 import java.nio.file.*;
 import javax.swing.*;
@@ -17,19 +18,18 @@ public class TelaDeCadastroController extends TelaDeCadastroView {
 
             chooser.setDialogTitle("Selecione o arquivo que deseja copiar");
             chooser.setApproveButtonText("Copiar arquivo");
-            int returnVal1 = chooser.showOpenDialog(null);
+            int returnVal = chooser.showOpenDialog(null);
             String fileFullPath = "";
             String fileName = "";
-
-            if(returnVal1 == JFileChooser.APPROVE_OPTION) {
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
                 fileFullPath = chooser.getSelectedFile().getAbsolutePath();
                 fileName = "file-" + Math.random() + "-" + chooser.getSelectedFile().getName();
             } else {
-                System.out.println("O usuario não copiou o arquivo selecionado!");
+                System.out.println("Usuário não selecionou o arquivo para copiar...");
             }
 
             Path pathOrigin = Paths.get(fileFullPath);
-            Path pathDestination = Paths.get(localViewImgFolder + "\\" + fileName);
+            Path pathDestination = Paths.get(InterfaceView.localViewImgFolder + "\\" + fileName);
             if (fileFullPath.length() > 0) {
                 Files.copy(pathOrigin, pathDestination, REPLACE_EXISTING);
                 System.out.println("Arquivo " + chooser.getSelectedFile().getName() + " copiado/colado com sucesso.");
@@ -39,13 +39,14 @@ public class TelaDeCadastroController extends TelaDeCadastroView {
 
             nomeArquivoFoto = fileName;
 
-            lblFoto.setIcon(new ImageIcon(new ImageIcon(localViewImgFolder + "\\" + nomeArquivoFoto).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            lblFoto.setIcon(new ImageIcon(new ImageIcon(InterfaceView.localViewImgFolder + "\\" + nomeArquivoFoto).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
         } catch (Exception e) {
-            System.err.println("Não foi possível copiar o arquivo.");
+            System.out.println("Não foi possível copiar o arquivo.");
         }
     }
 
     public static void removerFoto() {
-
+        lblFoto.setIcon(new ImageIcon(new ImageIcon(InterfaceView.localViewFolder + "\\imagem-padrao.jpg").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+        nomeArquivoFoto = "";
     }
 }
