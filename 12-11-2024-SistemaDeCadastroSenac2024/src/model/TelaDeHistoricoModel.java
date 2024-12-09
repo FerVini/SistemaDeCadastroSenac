@@ -1,6 +1,6 @@
 package model;
 
-import controller.*;
+// import controller.*;
 import view.InterfaceView;
 
 import java.util.*;
@@ -10,7 +10,7 @@ public class TelaDeHistoricoModel {
     public static String[] capturarHistorico() {
         ArrayList<String> strHistoricos = new ArrayList<String>();
         try {
-            String strSqlCapturarHistorico = "select * from `db_senac.`tbl_historico` where `id_login` = " + InterfaceView.idLoginAtual;
+            String strSqlCapturarHistorico = "select * from `db_senac`.`tbl_historico` where `id_login` = " + InterfaceView.idLoginAtual + ";";
             Connection conexao = MySQLConnector.conectar();
             Statement stmCapturarHistorico = conexao.createStatement();
             ResultSet rstCapturarHistorico = stmCapturarHistorico.executeQuery(strSqlCapturarHistorico);

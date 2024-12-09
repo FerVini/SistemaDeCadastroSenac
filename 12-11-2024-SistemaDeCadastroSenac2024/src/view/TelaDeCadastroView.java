@@ -87,6 +87,18 @@ public class TelaDeCadastroView extends JFrame {
                         txtEmail.requestFocus();
                         return;
                     }
+                    
+                    if (txtEmail.getText().trim().indexOf('@') < 0) {
+                        lblNotificacoes.setText("É necessário digitar @ no campo Email. Por favor, digite um @ no campo Email para prosseguir.");
+                        txtEmail.requestFocus();
+                        return;
+                    }
+                    
+                    if (txtEmail.getText().trim().indexOf('.') < 0) {
+                        lblNotificacoes.setText("É necessário digitar . no campo Email. Por favor, digite um . no campo Email para prosseguir.");
+                        txtEmail.requestFocus();
+                        return;
+                    }
 
                     if (String.valueOf(txtSenha.getPassword()).trim().length() == 0) {
                         lblNotificacoes.setText("É necessário digitar alguma coisa no campo Senha. Por favor, digite um caracter válido no campo Senha para prosseguir.");
@@ -133,8 +145,14 @@ public class TelaDeCadastroView extends JFrame {
 
     public static TelaDeCadastroView appTelaDeCadastroView;
     public static void main(String[] args) {
-        appTelaDeCadastroView = new TelaDeCadastroView();
-        appTelaDeCadastroView.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        // InterfaceView.verificarLarguraEAltura(appTelaDeAtualizacaoView,lblNotificacoes);
+        // InterfaceView.idLoginAtual = "16";
+        if (InterfaceView.idLoginAtual.equals("")) {
+            TelaDeLoginView.appTelaDeLoginView = new TelaDeLoginView();
+            TelaDeLoginView.appTelaDeLoginView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        } else {
+            appTelaDeCadastroView = new TelaDeCadastroView();
+            appTelaDeCadastroView.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            // InterfaceView.verificarLarguraEAltura(appTelaDeAtualizacaoView,lblNotificacoes);
+        }
     }
 }
